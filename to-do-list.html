@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        *{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: rgba(31, 31, 71, 1);
+}
+
+header{
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
+    color: white;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Start hidden */
+    transform: translateY(-30px); /* Start with slide-up effect */
+    animation: fadeSlideIn 1s ease forwards; /* Animation for fade and slide */
+}
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    animation: textGlow 1.5s ease-in-out infinite alternate;
+}
+header p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    animation: fadeIn 1.5s ease forwards 1s; 
+}
+/* Keyframes for Animations */
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 15px rgba(160, 100, 200, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 25px rgba(160, 100, 200, 1);
+    }
+}
+
+.main-container{
+        display: flex;
+        gap: 20px; /* Space between the sections */
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 5px;
+}
+
+.container, .schedule {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1); /* Subtle background */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Slight shadow */
+    align-items: center;
+    justify-content: center;
+    margin-top: 120px;
+    max-width: 500px;
+    margin: 50px auto 0 auto;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
+
+}
+
+.container:hover, .schedule:hover {
+    transform: translateY(-10px); /* Lift effect on hover */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.stat-container, .reminder{
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid purple;
+    display: flex;
+    gap: 50px;
+    width: 100%;
+    justify-content: space-between;
+    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
+    color: rgba(255, 255, 255, 1); 
+}
+
+.details {
+    width: 100%;
+}
+
+#progress{
+    width: 0%;
+    background-color: palevioletred;
+    border-radius: 10px;
+    height: 10px;
+    transition: all 0.3s ease;
+}
+#progressBar{
+   width: 100%;
+   height: 10px;
+   background-color: purple;
+   border-radius: 5px;
+   margin-top: 20px
+}
+
+#number{
+    background-color: purple;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+form{
+    margin-top: 60px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input{
+    flex: 1;
+    
+    padding: 16px;
+    background: lightpink;
+    border: 1px solid purple;
+    border-radius: 10px;
+    outline: none;
+}
+
+button{
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    border-radius: 15px;
+    justify-content: center;
+    background-color: purple;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+
+}
+
+#task-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+    width: 100%;
+    list-style: none;
+    transition: transform 0.3s, background-color 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+}
+
+.taskItem{
+    width: 100%;
+    display: flex;
+    background-color: lightpink;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.task input{
+    width: 20px;
+    height: 20px;
+}
+
+.task.completed p{
+    text-decoration: line-through;
+    color: purple;
+}
+.taskItem img{
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+ .taskItem img:hover {
+    transform: scale(1.2); /* Slight zoom effect on hover */
+}
+
+
+input:focus, select:focus {
+    background-color: #fad4d4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Focus effect */
+}
+
+ul li:hover {
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 4px 10px rgba(231, 156, 156, 0.1);
+}
+
+#date:hover, #time:hover{
+    cursor: pointer;
+}
+ 
+.table {
+    margin: 20px 0;
+}
+
+.table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-style: none;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.table th, .table td {
+    text-align: left;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.table th {
+    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
+    color: white;
+    font-weight: bold;
+}
+
+.table td {
+    
+    color: black;
+}
+
+
+.table tr:hover {
+    background-color: #fac1c1
+}
+
+/* Styling the checkbox container */
+.taskItem input[type="checkbox"] {
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 6px;
+    border: 2px solid #ae6ad6; /* Light purple border */
+    background-color: #fff; /* White background */
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect on checkbox */
+.taskItem input[type="checkbox"]:hover {
+    background-color: #f1c8e0; /* Light pink on hover */
+    border-color: #c05e94; /* Darker purple on hover */
+}
+
+/* Checked state of the checkbox */
+.taskItem input[type="checkbox"]:checked {
+    background-color: #ae6ad6; /* Purple background when checked */
+    border-color: #7a3a84; /* Darker border when checked */
+}
+
+/* Creating a checkmark when checked */
+.taskItem input[type="checkbox"]:checked::before {
+    content: "✔"; /* Unicode checkmark */
+    font-size: 18px;
+    color: white;
+    position: absolute;
+    top: 2px;
+    left: 5px;
+}
+
+/* Focus effect when checkbox is focused */
+.taskItem input[type="checkbox"]:focus {
+    box-shadow: 0 0 5px rgba(160, 100, 180, 0.5); /* Purple focus ring */
+}
+    </style>
+    <title>Todo List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Your Personal Productivity Dashboard</h1>
+        <p>Stay organized and manage your tasks effortlessly</p>
+    </header>
+    <main>
+        <div class="main-container">
+            <div class="container">
+                <div class="stat-container">
+                    <div class="details">
+                        <h1>Todo List</h1>
+                        <p>Keep it up!</p>
+                        <div id="progressBar">
+                            <div id="progress"></div>
+                        </div>
+                    </div>
+                    <div class="stats-num">
+                        <P id="number">0 / 0</P>
+                    </div>
+                </div>
+                <form action="" id="form">
+                    <input type="text" id="taskInput" placeholder="Add your task">
+                    <input type="date" id="date" placeholder="Date">
+                    <input type="time" id="time" placeholder="Time">
+                    <button type="button" onclick="scheduleReminder()"><img src="images/rem-icon.png" width="30" height="30"></button>
+                    <button id="newTask" type="submit">+</button>
+                    <button id="voiceButton" type="button" onclick="voice()">🎤</button> <!-- Voice button -->
+                </form>
+                <audio src="images/notification.wav" id="notificationSound"></audio>
+                <ul id="task-list"></ul>
+                
+                
+            </div>
+            <div class="schedule">
+                <div class="reminder">
+                    <h2>Scheduled Reminders</h2>
+                    </div>
+                <div class="table">
+                <table >
+                    <thead >
+                        <tr>
+                            <th>Title</th>
+                            <th>Date & Time</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reminderTableBody"></tbody>
+                </table>
+                </div>
+            </div>
+            </div>
+    </main>
+    
+        
+    
+    <script src="app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", ()=> {
+    const storedTask = JSON.parse(localStorage.getItem('tasks'));
+    if(storedTask){
+        storedTask.forEach((task)=> tasks.push(task));
+        updateTaskList();
+        updateStats();
+    }
+    const storedReminders = JSON.parse(localStorage.getItem('reminders'));
+    if (storedReminders) {
+        reminders.push(...storedReminders);
+        updateReminderTable();
+    }
+});
+
+
+
+let tasks = [];
+let reminders = [];
+
+const saveTasks = ()=>{
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+}
+
+const saveReminders = () => {
+    localStorage.setItem('reminders', JSON.stringify(reminders));
+};
+
+const addTask = () => {
+    
+        const taskInput = document.getElementById('taskInput');
+        const dateInput = document.getElementById("date");
+        const timeInput = document.getElementById("time")
+        const text = taskInput.value.trim();
+        
+
+        if (text === '') {
+            alert("You must write something!");
+        } else{
+    
+        if(text){
+            tasks.push({text: text, completed: false});
+            taskInput.value = "";
+ 
+        dateInput.value = "";
+        timeInput.value = "";
+            updateTaskList();
+            updateStats();
+            saveTasks();
+        }
+    }
+    
+};
+
+
+
+const toggleTaskComplete = (index) => {
+    tasks[index].completed = !tasks[index].completed;
+    updateTaskList();
+    console.log({tasks});
+    updateStats();
+    saveTasks();
+};
+
+const deleteTask = (index) => {
+    tasks.splice(index, 1);
+    updateTaskList();
+    updateStats();
+    saveTasks();
+};
+
+const editTask = (index) => {
+    const taskInput = document.getElementById('taskInput');
+    taskInput.value = tasks[index].text;
+    tasks.splice(index, 1);
+    updateTaskList();
+    updateStats();
+    saveTasks();
+}
+
+const updateStats = () => {
+    const completedTasks = tasks.filter(task => task.completed).length;
+    const totalTask = tasks.length;
+    const progressBar = document.getElementById('progress');
+
+    if (totalTask === 0) {
+        progressBar.style.width = `0%`; // Reset progress bar
+        document.getElementById('number').innerText = `0/0`; // Update stats display
+        return; // Exit early as there's nothing more to calculate
+    }
+
+    const progress = (completedTasks/totalTask) * 100;
+    progressBar.style.width = `${progress}%`;
+    document.getElementById('number').innerText = `${completedTasks}/${totalTask}`;
+
+    if(tasks.length && completedTasks === totalTask){
+        basicCanon();
+    }
+};
+
+const updateTaskList = () => {
+    const taskList = document.getElementById('task-list');
+    taskList.innerHTML = '';
+
+    tasks.forEach((task, index )=>{
+        const listItem = document.createElement('li');
+
+        listItem.innerHTML = `
+        <div class="taskItem">
+           <div class="task ${task.completed? "completed":""}">
+                <input type="checkbox" class="checkbox" ${task.completed?"checked":""} />
+                <p> ${task.text} </p>
+            </div>
+            <div class="icons">
+            <img src="edit-icon.png" onclick="editTask(${index})"/>
+            <img src="delete-icon.png" onclick="deleteTask(${index})" />
+            </div>
+        </div>`;
+
+        listItem.addEventListener('change', () => toggleTaskComplete(index));
+        taskList.append(listItem);
+
+        
+    });
+};
+
+function voice() {
+    const taskInput = document.getElementById('taskInput');
+    if (!taskInput) {
+        console.error("taskInput element not found!");
+        return;
+    }
+
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.lang = "en-GB";
+
+    recognition.onresult = function (event) {
+        taskInput.value = event.results[0][0].transcript;
+    };
+
+    recognition.onerror = function (event) {
+        console.error("Speech Recognition Error: ", event.error);
+    };
+
+    recognition.start();
+}
+//Notification
+if ("Notification" in window) {
+    Notification.requestPermission().then((permission) => {
+        if (Notification.permission !== "granted") {
+            alert("Notifications won't work unless you allow them!");
+            location.reload();
+        }
+    });
+}
+
+var timeoutIds = [];
+
+function scheduleReminder() {
+    const taskInput = document.getElementById("taskInput");
+    const dateInput = document.getElementById("date");
+    const timeInput = document.getElementById("time");
+
+    const title = taskInput.value.trim();
+    const date = dateInput.value;
+    const time = timeInput.value;
+
+    if (title === '') {
+        alert("You must enter a task!");
+        return;
+    }
+
+    const dateTimeString = `${date} ${time}`.trim();
+    const scheduledTime = new Date(dateTimeString);
+    const currentTime = new Date();
+    const timeDiff = scheduledTime - currentTime;
+
+    // Add to reminders and save to localStorage
+    reminders.push({ title: title, dateTime: dateTimeString });
+    addReminder(title, dateTimeString);
+    saveReminders();
+
+    // Clear input fields
+    taskInput.value = "";
+    dateInput.value = "";
+    timeInput.value = "";
+
+    if (timeDiff > 0) {
+        const timeoutId = setTimeout(() => {
+            document.getElementById("notificationSound").play();
+            new Notification(title, { requireInteraction: true });
+        }, timeDiff);
+        timeoutIds.push(timeoutId);
+    } else {
+        alert("The scheduled time is in the past!");
+    }
+}
+
+
+function addReminder(title, dateTimeString) {
+    var tableBody = document.getElementById("reminderTableBody");
+
+    var row = tableBody.insertRow();
+
+    var titleCell = row.insertCell(0);
+    var dateTimeCell = row.insertCell(1);
+    var actionCell = row.insertCell(2);
+
+    titleCell.innerHTML = title;
+    dateTimeCell.innerHTML = dateTimeString;
+    actionCell.innerHTML = 
+        '<button onclick="deleteReminder(this);"><img src="images/delete-icon.png" width="24"></button>';
+}
+
+function deleteReminder(button) {
+    var row = button.closest("tr");
+    var index = row.rowIndex - 1; // Adjust for the header row
+
+    clearTimeout(timeoutIds[index]);
+    timeoutIds.splice(index, 1);
+
+    reminders.splice(index, 1);
+    saveReminders();
+    row.remove();
+    //updateReminderTable();
+    (console.log(reminders))
+}//
+
+const updateReminderTable = () => {
+    const tableBody = document.getElementById("reminderTableBody");
+    tableBody.innerHTML = ""; // Clear existing rows
+
+    reminders.forEach((reminder) => {
+        addReminder(reminder.title, reminder.dateTime);
+    });
+};
+
+document.getElementById('newTask').addEventListener('click', function(e){
+    e.preventDefault();
+
+    addTask();
+});
+
+const basicCanon = ()=> {
+    confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+      });
+}
+    </script>
+</body>
+</html>
