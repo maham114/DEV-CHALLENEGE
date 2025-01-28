@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Flip Flashcards</title>
+    <style>
+        /* General Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', serif;
+            background-color: #f1f5f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            font-weight: 800px;
+            background-color: black;
+            
+            
+        }
+   
+        .container {
+            text-align: center;
+            background-image: linear-gradient(#1F1F47, #12122a);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 900px;
+            position: relative;
+        }
+        .container::after, .container::before{
+            position:absolute;
+            content: '';
+            height: 100%;
+            width: 100%;
+            background-image: conic-gradient(#ff4545,#00ff99,#006aff,#ff0095,#ff4545);
+            top: 50%;
+            left: 50%;
+            translate: -50% -50%;
+            z-index: -1;
+            padding: 3px;
+            border-radius: 10px;
+
+        }
+        .container::before{
+            filter: blur(1.5rem);
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-weight: 800;
+            font-family: 'Poppins', serif;
+            color: white;
+        }
+        input, button {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #BF5F9A;
+            font-size: 16px;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+        }
+        input:focus, button:hover {
+            box-shadow: 2px 2px 15px rgb(248, 108, 239);
+        }
+        button {
+            background-color: #BF5F9A;
+            color: white;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+        /* Flashcard Styles */
+        .flashcards {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .flashcard {
+            width: 200px;
+            height: 250px;
+            margin: 15px;
+            perspective: 1000px;
+        }
+        .flashcard-inner {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.6s;
+        }
+        .flashcard-inner.flipped {
+            transform: rotateY(180deg);
+        }
+        .flashcard-front, .flashcard-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        @keyframes rotate {
+            100%{
+                transform :rotate(360deg);
+            }
+        }
+        .flashcard-front {
+           
+            background-image: linear-gradient(#1F1F47, #3f3f8f);
+          
+            color: rgb(255, 249, 249);
+            border: 1px solid transparent;
+            animation: borderAnimation 3s infinite;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            z-index: +1;
+            overflow: hidden;
+        }
+        .flashcard-front.paused {
+            animation: none;
+        }
+        .flashcard-back {
+           /* background: linear-gradient(135deg, #B069D1, #492c57);*/
+            background-color: white;
+            color: rgb(12, 12, 12);
+            transform: rotateY(180deg);
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .flashcard-front::before{
+            position: absolute;
+            width: 150%;
+            height: 150%;
+            background:conic-gradient( from 90deg, rgb(0 0 0/0%) 70%, rgb(11 78 230/ 9%) 80%, rgb(0 220 255) 100%) ;
+            content: '';
+            left: -25%;
+            right: -25%;
+            animation: rotate 2s infinite linear;
+            z-index: -1;
+        }
+        .flashcard-front::after {
+            position: absolute;
+            content: '';
+            width: 94%;
+            height: 94%;
+            background-image: linear-gradient(#1F1F47, #2e2e6a);
+            top: 3%;
+            left: 3%;
+            z-index: -1;
+            
+
+
+        }
+        .actions {
+            display: none;
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            gap: 10px;
+        }
+        .action-btn {
+           /* background-color: #ff6347;*/
+            color: white;
+            font-size: 14px;
+            padding: 6px 12px;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+        }
+       /* .action-btn.edit {
+            
+            
+        }*/
+        .flashcard-inner.flipped .actions {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="container">
+        <h1>FLASHCARDS</h1>
+        <input type="text" id="questionInput" placeholder="Enter question">
+        <input type="text" id="answerInput" placeholder="Enter answer">
+        <button onclick="addFlashcard()">Add Flashcard</button>
+        <div class="flashcards" id="flashcards"></div>
+    </div>
+    <script>
+        let flashcardsData = [];
+    
+        // Load flashcards from local storage
+        function loadFlashcards() {
+            const storedFlashcards = localStorage.getItem('flashcards');
+            if (storedFlashcards) {
+                flashcardsData = JSON.parse(storedFlashcards);
+            }
+            renderFlashcards();
+        }
+    
+        // Save flashcards to local storage
+        function saveFlashcards() {
+            localStorage.setItem('flashcards', JSON.stringify(flashcardsData));
+        }
+    
+        function addFlashcard() {
+            const question = document.getElementById('questionInput').value.trim();
+            const answer = document.getElementById('answerInput').value.trim();
+    
+            if (question && answer) {
+                const flashcard = { id: Date.now(), question, answer };
+                flashcardsData.push(flashcard);
+                saveFlashcards(); // Save to local storage
+                renderFlashcards();
+                document.getElementById('questionInput').value = '';
+                document.getElementById('answerInput').value = '';
+            } else {
+                alert("Please enter both question and answer.");
+            }
+        }
+    
+        function renderFlashcards() {
+            const flashcardsContainer = document.getElementById('flashcards');
+            flashcardsContainer.innerHTML = '';
+            flashcardsData.forEach(card => {
+                const flashcardDiv = document.createElement('div');
+                flashcardDiv.classList.add('flashcard');
+                const flashcardInnerDiv = document.createElement('div');
+                flashcardInnerDiv.classList.add('flashcard-inner');
+                flashcardDiv.addEventListener('click', () => {
+                    flashcardInnerDiv.classList.toggle('flipped');
+                    flashcardInnerDiv.querySelector('.flashcard-front').classList.toggle('paused');
+                });
+                const frontDiv = document.createElement('div');
+                frontDiv.classList.add('flashcard-front');
+                frontDiv.textContent = card.question;
+                const backDiv = document.createElement('div');
+                backDiv.classList.add('flashcard-back');
+                backDiv.textContent = card.answer;
+                flashcardInnerDiv.appendChild(frontDiv);
+                flashcardInnerDiv.appendChild(backDiv);
+                flashcardDiv.appendChild(flashcardInnerDiv);
+                flashcardsContainer.appendChild(flashcardDiv);
+                const actionsDiv = document.createElement('div');
+                actionsDiv.classList.add('actions');
+    
+                const editButton = document.createElement('button');
+                editButton.classList.add('action-btn', 'edit');
+                editButton.innerHTML = '<i class="fas fa-edit"></i> ';
+                editButton.onclick = (e) => {
+                    e.stopPropagation(); // Prevent flipping during edit
+                    editFlashcard(card.id);
+                };
+    
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('action-btn');
+                deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>'
+                deleteButton.onclick = (e) => {
+                    e.stopPropagation(); // Prevent flipping during delete
+                    deleteFlashcard(card.id);
+                };
+    
+                actionsDiv.appendChild(editButton);
+                actionsDiv.appendChild(deleteButton);
+    
+                backDiv.appendChild(actionsDiv);
+    
+                flashcardInnerDiv.appendChild(frontDiv);
+                flashcardInnerDiv.appendChild(backDiv);
+                flashcardDiv.appendChild(flashcardInnerDiv);
+                flashcardsContainer.appendChild(flashcardDiv);
+            });
+        }
+    
+        function deleteFlashcard(id) {
+            flashcardsData = flashcardsData.filter(card => card.id !== id);
+            saveFlashcards(); // Save to local storage
+            renderFlashcards();
+        }
+    
+        function editFlashcard(id) {
+            const cardToEdit = flashcardsData.find(card => card.id === id);
+            const newQuestion = prompt('Edit question:', cardToEdit.question);
+            const newAnswer = prompt('Edit answer:', cardToEdit.answer);
+    
+            if (newQuestion && newAnswer) {
+                cardToEdit.question = newQuestion;
+                cardToEdit.answer = newAnswer;
+                saveFlashcards(); // Save to local storage
+                renderFlashcards();
+            }
+        }
+    
+        // Load flashcards when the page loads
+        window.onload = loadFlashcards;
+    </script>
+    
+</body>
+</html>
