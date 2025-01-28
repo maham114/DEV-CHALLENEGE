@@ -1,0 +1,316 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background: rgba(31, 31, 71, 1);
+}
+
+header{
+    text-align: center;
+    padding: 20px;
+    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
+    color: white;
+    border-radius: 15px;
+    margin: 20px auto;
+    max-width: 1200px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0; /* Start hidden */
+    transform: translateY(-30px); /* Start with slide-up effect */
+    animation: fadeSlideIn 1s ease forwards; /* Animation for fade and slide */
+}
+header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    animation: textGlow 1.5s ease-in-out infinite alternate;
+}
+header p {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    animation: fadeIn 1.5s ease forwards 1s; 
+}
+/* Keyframes for Animations */
+@keyframes fadeSlideIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes textGlow {
+    0% {
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.6), 0 0 15px rgba(160, 100, 200, 0.8);
+    }
+    100% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 25px rgba(160, 100, 200, 1);
+    }
+}
+
+.main-container{
+        display: flex;
+        gap: 20px; /* Space between the sections */
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 5px;
+}
+
+.container, .schedule {
+    flex: 1;
+    background: rgba(255, 255, 255, 0.1); /* Subtle background */
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Slight shadow */
+    align-items: center;
+    justify-content: center;
+    margin-top: 120px;
+    max-width: 500px;
+    margin: 50px auto 0 auto;
+    /* transition: transform 0.3s ease, box-shadow 0.3s ease; */
+
+}
+
+.container:hover, .schedule:hover {
+    transform: translateY(-10px); /* Lift effect on hover */
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3); /* Enhanced shadow on hover */
+}
+
+.stat-container, .reminder{
+    padding: 30px;
+    border-radius: 20px;
+    border: 2px solid purple;
+    display: flex;
+    gap: 50px;
+    width: 100%;
+    justify-content: space-between;
+    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
+    color: rgba(255, 255, 255, 1); 
+}
+
+.details {
+    width: 100%;
+}
+
+#progress{
+    width: 0%;
+    background-color: palevioletred;
+    border-radius: 10px;
+    height: 10px;
+    transition: all 0.3s ease;
+}
+#progressBar{
+   width: 100%;
+   height: 10px;
+   background-color: purple;
+   border-radius: 5px;
+   margin-top: 20px
+}
+
+#number{
+    background-color: purple;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+form{
+    margin-top: 60px;
+    width: 100%;
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+input{
+    flex: 1;
+    
+    padding: 16px;
+    background: lightpink;
+    border: 1px solid purple;
+    border-radius: 10px;
+    outline: none;
+}
+
+button{
+    width: 50px;
+    height: 50px;
+    align-items: center;
+    border-radius: 15px;
+    justify-content: center;
+    background-color: purple;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+    outline: none;
+    cursor: pointer;
+
+}
+
+#task-list{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 30px;
+    width: 100%;
+    list-style: none;
+    transition: transform 0.3s, background-color 0.3s ease;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+
+}
+
+.taskItem{
+    width: 100%;
+    display: flex;
+    background-color: lightpink;
+    padding: 10px;
+    border-radius: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.task{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.task input{
+    width: 20px;
+    height: 20px;
+}
+
+.task.completed p{
+    text-decoration: line-through;
+    color: purple;
+}
+.taskItem img{
+    width: 24px;
+    height: 24px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+ .taskItem img:hover {
+    transform: scale(1.2); /* Slight zoom effect on hover */
+}
+
+
+input:focus, select:focus {
+    background-color: #fad4d4;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Focus effect */
+}
+
+ul li:hover {
+    transform: translateY(-3px); /* Lift effect on hover */
+    box-shadow: 0 4px 10px rgba(231, 156, 156, 0.1);
+}
+
+#date:hover, #time:hover{
+    cursor: pointer;
+}
+ 
+.table {
+    margin: 20px 0;
+}
+
+.table table {
+    width: 100%;
+    border-collapse: collapse;
+    border-style: none;
+    margin: 20px 0;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
+}
+
+/* .table th {
+    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
+    color: white;
+    font-weight: bold;
+}
+
+.table td {
+    color: black;
+    border-radius: 8px;
+} */
+
+.table th, .table td {
+    text-align: left;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.8);
+}
+
+.table th {
+    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
+    color: white;
+    font-weight: bold;
+}
+
+.table td {
+    
+    color: black;
+}
+
+
+.table tr:hover {
+    background-color: #fac1c1
+}
+
+/* Styling the checkbox container */
+.taskItem input[type="checkbox"] {
+    appearance: none; /* Remove default styling */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 15px;
+    height: 15px;
+    border-radius: 6px;
+    border: 2px solid #ae6ad6; /* Light purple border */
+    background-color: #fff; /* White background */
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+/* Hover effect on checkbox */
+.taskItem input[type="checkbox"]:hover {
+    background-color: #f1c8e0; /* Light pink on hover */
+    border-color: #c05e94; /* Darker purple on hover */
+}
+
+/* Checked state of the checkbox */
+.taskItem input[type="checkbox"]:checked {
+    background-color: #ae6ad6; /* Purple background when checked */
+    border-color: #7a3a84; /* Darker border when checked */
+}
+
+/* Creating a checkmark when checked */
+.taskItem input[type="checkbox"]:checked::before {
+    content: "✔"; /* Unicode checkmark */
+    font-size: 18px;
+    color: white;
+    position: absolute;
+    top: 2px;
+    left: 5px;
+}
+
+/* Focus effect when checkbox is focused */
+.taskItem input[type="checkbox"]:focus {
+    box-shadow: 0 0 5px rgba(160, 100, 180, 0.5); /* Purple focus ring */
+}
