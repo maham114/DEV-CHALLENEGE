@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Focus Mode & Study Timer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            text-align: center;
+            background-color: #1A1A2E;
+            margin: 0;
+            padding: 20px;
+            color: white;
+        }
+
+        .container {
+            max-width: 450px;
+            margin: auto;
+            background: #16213E;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 15px rgba(255, 0, 150, 0.5);
+            position: relative;
+        }
+
+        #quote {
+            color: #D9D9D9;
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        #timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .time-card {
+            background: linear-gradient(135deg, #FF3CAC, #784BA0, #2B86C5);
+            color: white;
+            font-size: 2em;
+            padding: 20px;
+            border-radius: 10px;
+            min-width: 90px;
+            text-align: center;
+            box-shadow: 0px 0px 10px rgba(255, 0, 150, 0.7);
+        }
+
+        button {
+            padding: 12px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 1em;
+        }
+
+        .start {
+            background: #FF3CAC;
+            color: white;
+        }
+
+        .reset {
+            background: #784BA0;
+            color: white;
+        }
+
+        #progress-circle {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            border: 12px solid rgba(255, 0, 150, 0.7);
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+        }
+
+        #motivation {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #FF3CAC;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div id="quote">"Focus on the goal, not the distractions. Every minute counts."</div>
+        <h1>Focus Mode & Study Timer</h1>
+        <div id="progress-circle">100%</div>
+        <label for="custom-time">Set Time (hours, minutes, seconds):</label>
+        <input type="number" id="custom-hours" min="0" value="0"> :
+        <input type="number" id="custom-minutes" min="0" value="25"> :
+        <input type="number" id="custom-seconds" min="0" value="0">
+        <div id="timer">
+            <div class="time-card" id="hours">00</div>
+            <div class="time-card" id="minutes">25</div>
+            <div class="time-card" id="seconds">00</div>
+        </div>
+        <button class="start" id="start-btn" onclick="startTimer()">Start</button>
+        <button class="reset" onclick="resetTimer()">Reset</button>
+        <div id="motivation">Stay focused! You got this!</div>
+    </div>
+
+    <script>
+        let timer;
+        let timeLeft;
+        let totalTime;
+        let running = false;
+        const motivationMessages = [
+            "Keep going!", "You're doing great!", "Stay focused!", "Almost there!", "You got this!"
+        ];
+
+        function startTimer() {
+            if (!running) {
+                let hours = parseInt(document.getElementById("custom-hours").value) || 0;
+                let minutes = parseInt(document.getElementById("custom-minutes").value) || 0;
+                let seconds = parseInt(document.getElementById("custom-seconds").value) || 0;
+                timeLeft = (hours * 3600) + (minutes * 60) + seconds;
+                totalTime = timeLeft;
+                running = true;
+                document.getElementById("start-btn").style.display = "none";
+                timer = setInterval(() => {
+                    if (timeLeft > 0) {
+                        timeLeft--;
+                        updateTimerDisplay();
+                        updateProgress();
+                        if (timeLeft % 10 === 0) {
+                            document.getElementById("motivation").innerText = motivationMessages[Math.floor(Math.random() * motivationMessages.length)];
+                        }
+                    } else {
+                        clearInterval(timer);
+                        document.getElementById("motivation").innerText = "Congratulations! You achieved your goal! Take a break.";
+                        celebrate();
+                        running = false;
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            running = false;
+            document.getElementById("start-btn").style.display = "inline-block";
+            document.getElementById("motivation").innerText = "Stay focused! You got this!";
+            updateTimerDisplay();
+            updateProgress();
+        }
+
+        function updateTimerDisplay() {
+            let hours = Math.floor(timeLeft / 3600);
+            let minutes = Math.floor((timeLeft % 3600) / 60);
+            let seconds = timeLeft % 60;
+            document.getElementById("hours").innerText = `${hours < 10 ? '0' : ''}${hours}`;
+            document.getElementById("minutes").innerText = `${minutes < 10 ? '0' : ''}${minutes}`;
+            document.getElementById("seconds").innerText = `${seconds < 10 ? '0' : ''}${seconds}`;
+        }
+
+        function updateProgress() {
+            let progress = ((totalTime - timeLeft) / totalTime) * 100;
+            document.getElementById("progress-circle").innerText = `${Math.round(100 - progress)}%`;
+        }
+
+        function celebrate() {
+            alert("🎉 Time's up! Great job! 🎉");
+        }
+    </script>
+</body>
+
+</html>
