@@ -240,17 +240,6 @@ ul li:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); 
 }
 
-/* .table th {
-    background: linear-gradient(270deg, #C05E94 0%, #AE6AD6 100%);
-    color: white;
-    font-weight: bold;
-}
-
-.table td {
-    color: black;
-    border-radius: 8px;
-} */
-
 .table th, .table td {
     text-align: left;
     padding: 15px;
