@@ -337,11 +337,11 @@ ul li:hover {
                     <input type="text" id="taskInput" placeholder="Add your task">
                     <input type="date" id="date" placeholder="Date">
                     <input type="time" id="time" placeholder="Time">
-                    <button type="button" onclick="scheduleReminder()"><img src="images/rem-icon.png" width="30" height="30"></button>
+                    <button type="button" onclick="scheduleReminder()"><img src="rem-icon.png" width="30" height="30"></button>
                     <button id="newTask" type="submit">+</button>
                     <button id="voiceButton" type="button" onclick="voice()">🎤</button> <!-- Voice button -->
                 </form>
-                <audio src="images/notification.wav" id="notificationSound"></audio>
+                <audio src="notification.wav" id="notificationSound"></audio>
                 <ul id="task-list"></ul>
                 
                 
@@ -581,7 +581,7 @@ function addReminder(title, dateTimeString) {
     titleCell.innerHTML = title;
     dateTimeCell.innerHTML = dateTimeString;
     actionCell.innerHTML = 
-        '<button onclick="deleteReminder(this);"><img src="images/delete-icon.png" width="24"></button>';
+        '<button onclick="deleteReminder(this);"><img src="delete-icon.png" width="24"></button>';
 }
 
 function deleteReminder(button) {
