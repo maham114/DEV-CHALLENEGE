@@ -8,7 +8,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Poppins";
+    font-family: "Poppins"; 
 }
 
 body{
@@ -271,9 +271,10 @@ ul li:hover {
 
 /* Styling the checkbox container */
 .taskItem input[type="checkbox"] {
-    appearance: none; /* Remove default styling */
+    
     -webkit-appearance: none;
     -moz-appearance: none;
+    appearance: none; /* Remove default styling */
     width: 15px;
     height: 15px;
     border-radius: 6px;
@@ -310,6 +311,75 @@ ul li:hover {
 .taskItem input[type="checkbox"]:focus {
     box-shadow: 0 0 5px rgba(160, 100, 180, 0.5); /* Purple focus ring */
 }
+/* Existing styles remain unchanged */
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+    header {
+        font-size: 1.5rem;
+        padding: 15px;
+        margin: 10px;
+    }
+
+    .main-container {
+        flex-direction: column;
+        gap: 15px;
+        padding: 10px;
+    }
+
+    .container, .schedule {
+        max-width: 100%;
+        margin: 20px auto;
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    p {
+        font-size: 1rem;
+    }
+
+    input {
+        padding: 12px;
+        font-size: 1rem;
+    }
+
+    button {
+        width: 45px;
+        height: 45px;
+        font-size: 1.2rem;
+    }
+
+    #task-list {
+        gap: 5px;
+    }
+
+    .taskItem {
+        flex-direction: column;
+        padding: 10px;
+        text-align: center;
+    }
+
+    .task {
+        justify-content: center;
+    }
+
+    .table table {
+        font-size: 0.9rem;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+    }
+
+    /* Ensure buttons are easy to tap */
+    button, input {
+        min-height: 45px;
+    }
+}
+
     </style>
     <title>Todo List</title>
     <link rel="stylesheet" href="style.css">
