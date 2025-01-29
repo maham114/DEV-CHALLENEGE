@@ -9,15 +9,73 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:wght@500&display=swap" rel="stylesheet">
-    <style>
-          *{
+    <script src="https://kit.fontawesome.com/616de63735.js" crossorigin="anonymous"></script>
+</head>
+<style>
+  .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      width: 50%;
+      height: 100%;
+    }
+    @media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(1, 1fr);
+      }
+    }
+    .group:hover .opacity-25 {
+      opacity: 1;
+      transition-duration: 200ms;
+    }
+    .group:hover .opacity-25 {
+      opacity: 1;
+    }
+    .glass {
+      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .menu{
+      background-color: #242951;
+      padding: 10px 20px;
+      border-radius: 10px;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
+      position: absolute;
+      z-index: 100;
+      padding: 20px;
+      right:20px;
+      top: 20px;
+    }
+    .menu_button{
+      display: none;
+      color: white;
+      font-size: 30px;
+      position: absolute;
+      left: 20px;
+      padding: 30px;
+    }
+    .menu-list {
+      display: flex;
+      flex-direction: column ;
+      list-style: none;
+      justify-content: space-around;
+      width: 150px;
+      gap: 2rem;
+    }
+    @media (max-width: 760px) {
+      .menu_button{
+        display: block;
+      }
+    }
+    *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
 body{
-    background-color:thistle;
+    background-color: #201f47;
+    /* background: linear-gradient(135deg, rgb(7, 5, 39) 0%, rgb(32, 0, 43) 50%, rgb(144, 0, 255) 100%); */
     font-family: "Poppins";
     width: 100%;
 }
@@ -27,12 +85,11 @@ body{
   background-color: #242951;
   padding: 10px 20px;
   margin-top: 4rem;
-  /* margin-left: 14.5%; */
   border-radius: 30px;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.3);
   display: flex;
   justify-content: center;
-  width: 46rem;
+  /* width: max-content; */
   align-items: center;
   height: 5rem;
 }
@@ -87,9 +144,10 @@ body{
   
   .container_helo {
     margin: 0;
-    max-width: 100vw;
+    /* max-width: 100vw; */
     padding-top: 2rem;
     padding-bottom: 2.5rem;
+    overflow-x: hidden;
   }
 
   .days{
@@ -111,6 +169,7 @@ body{
     font-family: "Poppins";
     margin-bottom: 0.5rem;
   }
+
   
   .head1{
     margin-left: 23px;
@@ -148,10 +207,6 @@ body{
       font-size: 30px;
   }
 
-  .grid_{
-    column-gap: 1rem;
-  }
-
   .cards{
     height: 12rem;
     width: 17rem;
@@ -162,15 +217,10 @@ body{
   }
 }
 
-@media (max-width: 1060px) {
-  .grid_{
-    column-gap: 2rem;
-  }
-}
+
 
 @media (max-width: 960px) {
   .navbar {
-    
       margin-left: 10%; 
       width: 90%;
   }
@@ -203,6 +253,7 @@ body{
 }
 @media (max-width: 760px) {
   .navbar {
+    display: none;
     height: 4rem;
       margin-left: 10%;
       width: 80%; 
@@ -217,9 +268,21 @@ body{
       font-size: 0.8rem;
   }
   .heading-primary{
-    font-size: 2.7rem;  
+    font-size: 2rem;  
   }
-
+  .heading-primary > .days{
+    font-size: 2rem;  
+  }
+  .heading-primary > .success{
+    font-size: 2rem;  
+  }
+  .container_helo {
+    margin: 0;
+    /* max-width: 100vw; */
+    padding-top: 2rem;
+    padding-bottom: 2.5rem;
+    overflow-x: hidden;
+  }
   .navbar-icon i {
       font-size: 18px; 
   }
@@ -239,45 +302,15 @@ body{
   display: flex;
   justify-content: center;
 }
+@media (max-width: 760px) {
+  .grid_{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
 
-
-
-
-
-/* 
-ul {
-  list-style: none;
-  display: flex;
-}
-ul li {
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: .3s;
-}
-ul li:before {
-  content: "";
-  position: absolute;
-  inset: calc(100% - 3px) 0 0 0; 
-  background: #7f00ff; 
-  scale: 0 1;
-  transition: .3s, translate 0s .3s;
-}
-ul:hover li:before {
-  scale: 1;
-}
-ul li:hover:before {
-  transition: .3s;
-}
-ul:hover li:has(~ li:hover):before {
-  translate: 100% 0;
-  transition: .2s .2s,scale 0s .4s;
-}
-ul:hover li:hover ~ li:before {
-  translate: -100% 0;
-  transition: .2s .2s,scale 0s .4s;
-}
- */
 
 
 ul li {
@@ -305,7 +338,7 @@ ul li:hover:before {
 }
 ul:hover li:has(~ li:hover):before {
   translate: 100% 0;
-  transition: .2s .2s,scale 0s .4s;           
+  transition: .2s .2s,scale 0s .4s;
 }
 ul:hover li:hover ~ li:before {
   translate: -100% 0;
@@ -317,65 +350,61 @@ body {
   display: grid;
   place-content: center;
 }
-
-
-    </style>
-    <script src="https://kit.fontawesome.com/616de63735.js" crossorigin="anonymous"></script>
-</head>
-<style>
-  .grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      width: 50%;
-      height: 100%;
-    }
-    @media (min-width: 768px) {
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    .group:hover .opacity-25 {
-      opacity: 1;
-      transition-duration: 200ms;
-    }
-    .group:hover .opacity-25 {
-      opacity: 1;
-    }
-    .glass {
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.3);
-    }
 </style>
 <body>
+  <div class="menu_button">
+    <button onclick="opennav()"><i class="fa-solid fa-bars"></i></button>
+  </div>
+  <nav class="menu" id="menu" style="display: none;">
+    <div class="navbar-container">
+      <ul class="menu-list">
+        <li class="navbar-item">
+          <span class="navbar-icon"><i class="fa-solid fa-house"></i><p>Home</p></span>
+        </li>
+        <li class="navbar-item">
+          <span class="navbar-icon"><i class="fa-solid fa-clock"></i><p>Focus</p></span>
+        </li>
+        <li class="navbar-item">
+          <span class="navbar-icon"><i class="fa-solid fa-calendar-days"></i><p>Plan</p></span>
+        </li>
+        <li class="navbar-item">
+          <span class="navbar-icon"><i class="fa-solid fa-pencil"></i><p>Learn</p></span>
+        </li>
+        <li class="navbar-item">
+          <span class="navbar-icon"><i class="fa-solid fa-star"></i><p>Boost</p></span>
+        </li>
+      </ul>
+    </div>
+  </nav>
     <nav class="navbar">
         <div class="navbar-container">
           <ul class="navbar-list">
             <li class="navbar-item">
-               <a href="index.html"><span class="navbar-icon"><i class="fa-solid fa-house"></i><p>Home</p></span></a>
-            </li>
-            <li class="navbar-item">
-              <a href="focus-mode.html"><span class="navbar-icon"><i class="fa-solid fa-clock"></i><p>Focus</p></span></a>
-            </li>
-            <li class="navbar-item">
-              <a href="to-do-list.html"><span class="navbar-icon"><i class="fa-solid fa-calendar-days"></i><p>Plan</p></span></a>
-            </li>
-            <li class="navbar-item">
-              <a href="flashcard.html"><span class="navbar-icon"><i class="fa-solid fa-pencil"></i><p>Learn</p></span></a>
-            </li>
-            <li class="navbar-item">
-              <a href="dailytask.html"><span class="navbar-icon"><i class="fa-solid fa-star"></i><p>Boost</p></span></a>
-            </li>
+              <a href="index.html"><span class="navbar-icon"><i class="fa-solid fa-house"></i><p>Home</p></span></a>
+           </li>
+           <li class="navbar-item">
+             <a href="focus-mode.html"><span class="navbar-icon"><i class="fa-solid fa-clock"></i><p>Focus</p></span></a>
+           </li>
+           <li class="navbar-item">
+             <a href="to-do-list.html"><span class="navbar-icon"><i class="fa-solid fa-calendar-days"></i><p>Plan</p></span></a>
+           </li>
+           <li class="navbar-item">
+             <a href="flashcard.html"><span class="navbar-icon"><i class="fa-solid fa-pencil"></i><p>Learn</p></span></a>
+           </li>
+           <li class="navbar-item">
+             <a href="dailytask.html"><span class="navbar-icon"><i class="fa-solid fa-star"></i><p>Boost</p></span></a>
+           </li>
           </ul>
         </div>
       </nav>
+  
       
-    <section class="section">
+      <section class="section">
         <!-- <div class="head"> -->
           <div class="container_helo">
             <pre class="heading-primary"><h2 class="heading-primary head1">Simplify Your <span class="days">Days</span>, </h2></pre>
             <pre><h2 class="heading-primary head2">Amplify Your <span class="success">Success</span></h2></pre>
-        </div>
+          </div>
         <!-- </div> -->
                
         <div class="grid_  gap-y-[rem] gap-x-[2rem] ">
@@ -438,5 +467,12 @@ body {
       </section>
       
       
+      
 </body>
+<script>
+  function opennav(){
+    const menu = document.getElementById('menu');
+    menu.style.display = menu.style.display === "none" ? "block" : "none";
+  }
+</script>
 </html>
