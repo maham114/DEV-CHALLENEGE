@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Expressions</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #1A1A2E; /* Deep Dark */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            overflow: auto;
+            max-width: 100vw;
+            transition: background-color 0.5s;
+        }
+
+        .main-heading {
+            font-size: 40px;
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease-out;
+            margin-top: 10px;
+        }
+
+        .mode {
+            background: linear-gradient(145deg, #FF85B3, #E6007A, #8A2BE2); /* Light Pink, Dark Pink, Purple Gradient */
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .sub-heading {
+            font-size: 32px;
+            font-weight: bold;
+            color: #f5f5f5;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+            opacity: 1;
+            animation: slideIn 1.5s ease-out;
+            margin-bottom: 30px;
+        }
+
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .box {
+            background: linear-gradient(145deg, #FF85B3, #E6007A, #8A2BE2); /* Light Pink, Dark Pink, Purple Gradient */
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: #fff;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(255, 255, 255, 0.3);
+        }
+
+        .icon {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 26px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #f8f8f8;
+        }
+
+        .task-list {
+            display: none;
+            margin-top: 20px;
+            max-width: 700px;
+            width: 100%;
+            background-color: #1F1F47; /* Deep Blue */
+            border-radius: 15px;
+            padding: 25px;
+            border: 5px solid #E6007A; /* Purple Border */
+            box-shadow: 0 12px 30px rgba(15, 10, 65, 0.4);
+            max-height: 400px;
+            animation: fadeIn 4s ease-out;
+        }
+
+        .task-item {
+            background-color: #312579; /* Purple Task */
+            border-radius: 13px;
+            margin: 15px 0;
+            padding: 15px;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+        .task-item:hover {
+            background-color: #8A2BE2; /* Brighter Purple */
+            transform: translateX(10px);
+        }
+
+        /* Scrollbar Style */
+        body::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background: linear-gradient(145deg, #FF85B3, #f132c4, #8A2BE2);
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: #2A2A2E;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-heading">
+        Daily Tasks to Elevate Your <span class="mode">Mode</span>
+    </div>
+
+    <div class="sub-heading">
+        What are you feeling?
+    </div>
+
+    <div class="container">
+        <div class="box" onclick="showTasks('happiness')">
+            <div class="icon">😊</div>
+            <div class="title">Happiness</div>
+            <div class="description">Spread positivity and joy.</div>
+        </div>
+
+        <div class="box" onclick="showTasks('sadness')">
+            <div class="icon">😢</div>
+            <div class="title">Sadness</div>
+            <div class="description">Take time to heal and reflect.</div>
+        </div>
+
+        <div class="box" onclick="showTasks('depression')">
+            <div class="icon">😞</div>
+            <div class="title">Depression</div>
+            <div class="description">Seek comfort and reach out for help.</div>
+        </div>
+
+        <div class="box" onclick="showTasks('excitement')">
+            <div class="icon">🤩</div>
+            <div class="title">Excitement</div>
+            <div class="description">Embrace the thrill of the moment.</div>
+        </div>
+    </div>
+
+    <!-- Task Lists -->
+    <div class="task-list" id="happiness-tasks"></div>
+    <div class="task-list" id="sadness-tasks"></div>
+    <div class="task-list" id="depression-tasks"></div>
+    <div class="task-list" id="excitement-tasks"></div>
+
+    <script>
+        const tasks = {
+            happiness: [
+                { task: 'Spread love to someone' },
+                { task: 'Watch a funny video' },
+                { task: 'Go for a walk in nature' },
+                { task: 'Call a friend' },
+                { task: 'Give someone a compliment' },
+            ],
+            sadness: [
+                { task: 'Write in your journal' },
+                { task: 'Talk to a friend' },
+                { task: 'Practice deep breathing' },
+                { task: 'Listen to calming music' },
+            ],
+            depression: [
+                { task: 'Take a short walk in sunlight' },
+                { task: 'Write down three things you are grateful for' },
+                { task: 'Drink a glass of water' },
+                { task: 'Practice grounding exercises' },
+                { task: 'Watch an inspiring TED Talk' },
+            ],
+            excitement: [
+                { task: 'Share your excitement with a friend' },
+                { task: 'Start a creative project' },
+                { task: 'Explore a new hobby' },
+                { task: 'Organize a fun gathering' },
+                { task: 'Watch an adventure-filled movie' },
+            ],
+        };
+
+        function showTasks(category) {
+            const taskList = document.getElementById(category + '-tasks');
+            taskList.innerHTML = '';
+            document.querySelectorAll('.task-list').forEach(list => list.style.display = 'none');
+            taskList.style.display = 'block';
+            tasks[category].forEach(task => {
+                const taskItem = document.createElement('div');
+                taskItem.className = 'task-item';
+                taskItem.innerText = task.task;
+                taskItem.onclick = () => {
+                    taskItem.style.backgroundColor = '#8A2BE2';
+                    taskItem.style.transform = 'translateX(100%)';
+                    setTimeout(() => taskItem.remove(), 400);
+                };
+                taskList.appendChild(taskItem);
+            });
+        }
+    </script>
+
+</body>
+</html>
